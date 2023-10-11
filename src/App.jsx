@@ -1,5 +1,11 @@
+import ThemeSwitcher from "./components/ThemeSwitcher";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div className="h-screen">
+      <ThemeSwitcher />
+    </div>
+  );
 }
 
 export default App;
