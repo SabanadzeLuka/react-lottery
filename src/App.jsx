@@ -1,9 +1,9 @@
-import ThemeSwitcher from "./components/ThemeSwitcher";
+import Switcher from "./components/Switcher";
 
 function App() {
   return (
-    <div className="h-screen">
-      <ThemeSwitcher />
+    <div className="h-screen dark:bg-zinc-950 bg-zinc-50 duration-300 transition">
+      <Switcher />
     </div>
   );
 }

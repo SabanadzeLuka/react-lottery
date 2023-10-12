@@ -2,70 +2,86 @@ import React, { useEffect, useState } from "react";
 
 const Switcher = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "system");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "System");
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    setIsChecked((prevIsChecked) => {
+      if (prevIsChecked) {
+        setTheme("Light");
+      } else {
+        setTheme("Dark");
+      }
+      return !prevIsChecked;
+    });
   };
 
-  const toggleTheme = () => {
-    if (isChecked) {
+  const onWindowMatch = () => {
+    if (
+      localStorage.theme === "Dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "Dark");
+      setIsChecked(true);
+      setTheme("Dark");
     } else {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "Light");
+      setIsChecked(false);
+      setTheme("Light");
     }
   };
 
-  
-
   useEffect(() => {
-    toggleTheme();
-  }, [isChecked]);
-
-  useEffect(() => {
-    handleThemeSwitcher();
-  }, [theme]);
-
-  const handleThemeSwitcher = () => {
     switch (theme) {
       case "Dark":
         document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "Dark");
         setIsChecked(true);
         break;
       case "Light":
         document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "Light");
         setIsChecked(false);
         break;
       default:
+        localStorage.removeItem("theme");
+        onWindowMatch();
         break;
     }
-  };
+  }, [theme]);
+
   return (
     <>
-      <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxChange}
-          className="sr-only"
-        />
-        <span className="label flex items-center text-sm font-medium text-black">
-          Change Appearance
-        </span>
-        <span
-          className={`slider mx-4 flex h-6 w-[48px] items-center rounded-full p-1 duration-200 ${
-            isChecked ? "bg-[#212b36]" : "bg-[#CCCCCE]"
-          }`}
-        >
+      <div className="absolute top-2 right-0">
+        <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            className="sr-only"
+          />
           <span
-            className={`dot h-4 w-4 rounded-full bg-white duration-200 ${
-              isChecked ? "translate-x-[24px]" : ""
+            className={`label flex items-center text-sm font-medium text-black ${
+              isChecked ? "text-zinc-50" : ""
             }`}
-          ></span>
-        </span>
-      </label>
+          >
+            Change Appearance
+          </span>
+          <span
+            className={`slider mx-4 flex h-5 w-[38px] items-center rounded-full p-1 duration-200 ${
+              isChecked ? "bg-zinc-50" : "bg-zinc-950"
+            }`}
+          >
+            <span
+              className={`dot h-3 w-3 rounded-full bg-zinc-50 duration-200 ${
+                isChecked ? "translate-x-[20px] bg-zinc-950" : ""
+              }`}
+            ></span>
+          </span>
+        </label>
+      </div>
     </>
   );
 };
