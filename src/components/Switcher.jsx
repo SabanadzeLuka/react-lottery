@@ -63,7 +63,7 @@ const Switcher = () => {
             className="sr-only"
           />
           <span
-            className={`label flex items-center text-sm font-medium text-black ${
+            className={`label flex items-center text-sm  text-black ${
               isChecked ? "text-zinc-50" : ""
             }`}
           >

@@ -1,9 +1,9 @@
-import Switcher from "./components/Switcher";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="h-screen dark:bg-zinc-950 bg-zinc-50 duration-300 transition">
-      <Switcher />
+    <div>
+      <Home />
     </div>
   );
 }
