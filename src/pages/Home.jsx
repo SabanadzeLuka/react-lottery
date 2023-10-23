@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
       <Switcher />
-      <div className=" dark:bg-zinc-800 bg-zinc-50 duration-300 transition dark:text-zinc-50 bg-center bg-cover bg-no-repeat  dark:bg-none">
+      <div className=" dark:bg-zinc-900 bg-zinc-50 duration-300 transition dark:text-zinc-50 bg-center bg-cover bg-no-repeat  dark:bg-none">
         <div className="grid grid-cols-3 gap-4 top-14 relative  px-20 py-20">
           <div className="flex flex-col justify-center">
             <h1 className="font-extrabold text-5xl tracking-tight">

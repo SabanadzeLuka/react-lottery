@@ -3,7 +3,7 @@ import numbersSlice from "../slices/numbersSlice";
 
 const store = configureStore({
   reducer: {
-    numbersSlice,
+    numbers: numbersSlice,
   },
 });
 
