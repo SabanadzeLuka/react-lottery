@@ -9,8 +9,11 @@ export const numbersSlice = createSlice({
     addNumber: (state, action) => {
       state.numbers.push(action.payload);
     },
+    removeNumber: (state, action) => {
+      state.numbers = state.numbers.filter((number) => number !== action.payload);
+    },
   },
 });
 
-export const { addNumber } = numbersSlice.actions;
+export const { addNumber, removeNumber } = numbersSlice.actions;
 export default numbersSlice.reducer;

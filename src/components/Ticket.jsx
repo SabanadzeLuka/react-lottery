@@ -1,13 +1,14 @@
 import "../index.css";
 import { useSelector } from "react-redux";
-import useAddNumber from "./useAddNumber";
+import useNumbers from "./useNumber";
 
 function Ticket() {
+  const { addNumberToStore, removeNumberFromStore } = useNumbers();
+
   const numbers = Array.from(Array(42), (_, index) => index + 1);
   const numbersArray = useSelector((state) => state.numbers.numbers);
 
   console.log(numbersArray);
-  const addNumber = useAddNumber();
 
   return (
     <div className="flex justify-center">
@@ -16,10 +17,15 @@ function Ticket() {
           <h1>
             Purchase a <span>Ticket</span>
           </h1>
-
+          <p className="text-sm">Your Numbers:</p>
+          <div className="flex  align-middle items-center gap-3 absolute">
+            {numbersArray.map((number) => (
+              <p key={number}>{number}</p>
+            ))}
+          </div>
           <div className="title">
             <h2>Choose Numbers</h2>
-            <div className="grid grid-cols-8 gap-3 mt-3">
+            <div className="grid grid-cols-8 gap-3 mt-2">
               {numbers.map((number) => (
                 <div
                   onClick={() => {
@@ -27,7 +33,9 @@ function Ticket() {
                       numbersArray.length < 6 &&
                       !numbersArray.includes(number)
                     ) {
-                      addNumber(number);
+                      addNumberToStore(number);
+                    } else if (numbersArray.includes(number)) {
+                      removeNumberFromStore(number);
                     }
                   }}
                   className={`rounded cursor-pointer flex justify-center items-center w-8 h-8 border-2 border-[#F3D55B] ${
